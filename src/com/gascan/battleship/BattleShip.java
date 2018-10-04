@@ -5,16 +5,27 @@ import java.util.ArrayList;
 
 public class BattleShip {
     ArrayList<String> guessedNumbers;
-    int[][] locationCell = new int[7][7];
+    String[][] locationCell = new String[7][7];
     int numberOfTotalGuesses = 0;
     int hitMarker = 0;
 
     public BattleShip(){
        guessedNumbers = new ArrayList<>();
+       initializeStringArray();
         initializePlayGround();
         setLocationCells();
         setLocationCells();
         setLocationCells();
+    }
+
+    void initializeStringArray(){
+        int col = 6;
+        int row = 6;
+        for(int i = 0; i <= col; i++){
+            for(int j = 0; j <= col; j++){
+                locationCell[i][j] = "O";
+            }
+        }
     }
 
     String checkYourSelf(String guess) {
@@ -51,8 +62,8 @@ public class BattleShip {
                 squareGuess = 6;
                 break;
         }
-        if (locationCell[squareGuess][numberGuess] == 1) {
-            locationCell[squareGuess][numberGuess] = 2;
+        if (locationCell[squareGuess][numberGuess].equals("X")) {
+            locationCell[squareGuess][numberGuess] = "X";
             hitMarker++;
             if(hitMarker == 3){
                 return "You sank boat number 1!";
@@ -75,10 +86,10 @@ public class BattleShip {
 
         if (upOrDown == 0) {
             while (true) {
-                if (locationCell[tal1][tal2] == 0 && locationCell[tal1][tal2 + 1] == 0 && locationCell[tal1][tal2 + 2] == 0) {
-                    locationCell[tal1][tal2] = 1;
-                    locationCell[tal1][tal2 + 1] = 1;
-                    locationCell[tal1][tal2 + 2] = 1;
+                if (locationCell[tal1][tal2].equals("O") && locationCell[tal1][tal2 + 1].equals("O") && locationCell[tal1][tal2 + 2].equals("O")) {
+                    locationCell[tal1][tal2] = "X";
+                    locationCell[tal1][tal2 + 1] = "X";
+                    locationCell[tal1][tal2 + 2] = "X";
                     break;
                 }
                 tal1 = (int) (Math.random() * 5);
@@ -86,10 +97,10 @@ public class BattleShip {
             }
         }else {
             while (true) {
-                if (locationCell[tal2][tal1] == 0 && locationCell[tal2 + 1][tal1] == 0 && locationCell[tal2 + 2][tal1] == 0) {
-                    locationCell[tal2][tal1] = 1;
-                    locationCell[tal2 + 1][tal1] = 1;
-                    locationCell[tal2 + 2][tal1] = 1;
+                if (locationCell[tal2][tal1].equals("O") && locationCell[tal2 + 1][tal1].equals("O") && locationCell[tal2 + 2][tal1].equals("O")) {
+                    locationCell[tal2][tal1] = "X";
+                    locationCell[tal2 + 1][tal1] = "X";
+                    locationCell[tal2 + 2][tal1] = "X";
                     break;
                 }
                 tal1 = (int) (Math.random() * 5);
@@ -103,7 +114,7 @@ public class BattleShip {
         int col = 6;
         for (int i = 0; i <= col; i++) {
             for (int j = 0; j <= row; j++) {
-                locationCell[row][col] = 0;
+                locationCell[row][col] = "O";
             }
         }
     }
@@ -111,15 +122,23 @@ public class BattleShip {
     void printPlayGround() {
         int row = 6;
         int col = 6;
+        char a = 65;
+        System.out.print("  ");
+        for(int i = 0; i <= col; i++){
+            System.out.print(i + " ");
+        }
+        System.out.print("\n");
         for (int i = 0; i <= col; i++) {
+            System.out.print(a + "|");
             for (int j = 0; j <= row; j++) {
                 if (j == 6) {
                     System.out.print(locationCell[i][j] + "\n");
                 } else {
                     System.out.print(locationCell[i][j] + " ");
-                }
 
+                }
             }
+            a++;
         }
     }
 }
