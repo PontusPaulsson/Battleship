@@ -39,7 +39,7 @@ public class BattleShip {
             }
         }
         guessedNumbers.add(guess);
-        switch (guess.substring(0,1)) {
+        switch (guess.substring(0,1).toUpperCase()) {
             case "A":
                 squareGuess = 0;
                 break;
@@ -63,7 +63,7 @@ public class BattleShip {
                 break;
         }
         if (locationCell[squareGuess][numberGuess].equals("X")) {
-            locationCell[squareGuess][numberGuess] = "X";
+            locationCell[squareGuess][numberGuess] = "H";
             hitMarker++;
             if(hitMarker == 3){
                 return "You sank boat number 1!";
@@ -74,9 +74,10 @@ public class BattleShip {
                 System.exit(0);
             }
             return "Hit";
+        }else{
+            locationCell[squareGuess][numberGuess] = "M";
+            return "Miss";
         }
-        return "Miss";
-
     }
 
     void setLocationCells() {
@@ -93,7 +94,6 @@ public class BattleShip {
                     break;
                 }
                 tal1 = (int) (Math.random() * 5);
-                tal1 = (int) (Math.random() * 5);
             }
         }else {
             while (true) {
@@ -103,7 +103,6 @@ public class BattleShip {
                     locationCell[tal2 + 2][tal1] = "X";
                     break;
                 }
-                tal1 = (int) (Math.random() * 5);
                 tal1 = (int) (Math.random() * 5);
             }
         }
@@ -132,10 +131,20 @@ public class BattleShip {
             System.out.print(a + "|");
             for (int j = 0; j <= row; j++) {
                 if (j == 6) {
-                    System.out.print(locationCell[i][j] + "\n");
-                } else {
-                    System.out.print(locationCell[i][j] + " ");
+                    if(locationCell[i][j].equals("X")){
+                        System.out.print("O " + "\n");
+                    }
+                    else{
+                        System.out.print(locationCell[i][j] + "\n");
+                    }
 
+                } else {
+                    if(locationCell[i][j].equals("X")) {
+                        System.out.print("O ");
+                    }else {
+                        System.out.print(locationCell[i][j] + " ");
+
+                    }
                 }
             }
             a++;
